@@ -2,6 +2,8 @@ import Navbar from '../component/navbar'
 import Filter from '../component/filter'
 
 function Homepage() {
+   
+   
   return (
     <div>
         <Navbar/>
