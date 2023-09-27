@@ -2,6 +2,7 @@ import Navbar from '../component/navbar'
 import Filter from '../component/filter'
 import NavbarPanel from '../component/navbarPanel'
 import { useAppSelector } from '../redux/store'
+import Card from '../component/card'
 
 function Homepage() {
     const open1=useAppSelector((state)=>state.openReducer.open1)
@@ -20,6 +21,9 @@ function Homepage() {
         <div className="mx-9">
             <p className='text-indigo-950 text-2xl mt-3 font-bold'>Search Properties for rent</p>
             <Filter/>
+        </div>
+        <div className='mx-9 my-12'>
+          <Card/>
         </div>
     </div>
   )
