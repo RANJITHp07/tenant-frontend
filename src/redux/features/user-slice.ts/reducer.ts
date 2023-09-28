@@ -9,7 +9,7 @@ interface InitalState{
 
 const initialState:InitalState={
     data:'',
-    loading:true,
+    loading:false,
     err:null
 }
 

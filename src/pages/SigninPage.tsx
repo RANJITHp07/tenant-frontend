@@ -4,7 +4,15 @@ import Form from '../component/form'
 function SigninPage() {
   return (
     <div>
-        <Form/>
+        <div>
+            <div>
+                <Form page={true}/>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        
     </div>
   )
 }

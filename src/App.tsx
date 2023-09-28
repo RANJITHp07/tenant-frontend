@@ -1,13 +1,14 @@
 
 import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/LoginPage";
+import SigninPage from "./pages/SigninPage";
 
 
 
 function App() {
   return (
     <div>
-      <LoginPage/>
+      <SigninPage/>
     </div>
   );
 }
