@@ -1,18 +1,83 @@
-import {useState,ChangeEvent} from 'react'
+import {useState,useEffect, ChangeEvent} from 'react'
+import Slider from '@mui/material/Slider';
+import { popularCitiesInIndia } from '../services/data/cities';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 function  Filter() {
 
    const [sliderValue, setSliderValue] = useState(50);
+   const [filter,setfilter]=useState<string[]>([])
+   const [city,setcity]=useState('')
+
+   function valuetext(value: number) {
+      return `${value * 100}°C`;
+    }
+
+    useEffect(()=>{
+      setfilter(popularCitiesInIndia)
+    },[])
+
+  const handleFilter=(e:ChangeEvent<HTMLInputElement>)=>{
+      try{
+         if(e.target.value.length!=0 && filter.length>0){
+           setopenDrop(true)
+            setcity(e.target.value)
+          const newFilter = popularCitiesInIndia.filter((value:string) => {
+            return value.toLowerCase().includes(e.target.value.toLowerCase());
+          });
+          setfilter(newFilter)
+         }
+         else if(filter.length===0){
+          setopenDrop(true)
+            setfilter(popularCitiesInIndia)
+            
+         }else{
+          setopenDrop(false)
+          setcity('')
+         }
+        
+       }catch(err){
+         throw err
+       }
+
+
+    }
+   
+    
+    const [openDrop,setopenDrop]=useState(false)
+   
   return (
     <div className='flex p-4 items-center justify-between  box_shadow my-3 rounded-lg'>
          <div className="w-60 mr-5">
             <p className="text-slate-500">City</p>
-            <select className="border-2 border-slate-500 p-2 w-11/12 mt-1 rounded-lg">
-  <option disabled selected>Select the city</option>
-  <option>Kerala</option>
-  <option>Another City</option>
-  <option>Yet Another City</option>
-</select>
+            <div className='flex items-center border-2 border-slate-600 rounded-md pl-2 py-1 mt-1 w-11/12'>
+            <input
+  type="text"
+  placeholder="Search city to stay"
+  onChange={(e:ChangeEvent<HTMLInputElement>)=>handleFilter(e)}
+  value={city}
+  className="border-none  w-10/12 mb-1 rounded-lg focus:outline-none"
+/>
+<ArrowDropDownIcon className='cursor-pointer' onClick={()=>setopenDrop(!openDrop)} />
+            </div>
+           
+   { openDrop &&
+    <div className='absolute bg-white h-72 w-56 overflow-y-auto p-3 rounded-lg box_shadow'>
+     {filter.length >0 ?filter.map((p) => {
+        return (
+          <option key={p} onClick={()=>{
+            setcity(p)
+            setopenDrop(false)
+          }
+         } className='cursor-pointer hover:bg-slate-300 hover:p-2 '>{p}</option>
+        );
+      }):<p className='text-slate-300'>No such city available</p>
+     }
+   </div>
+}
+
+   
+
          </div>
          <div className="w-60 mr-5">
             <p className="text-slate-500">Available<span className="text-xs"> (Move in date)</span></p>
@@ -24,18 +89,22 @@ function  Filter() {
             
             <div className="flex text-xs mt-2">
             <span>0</span>
-            <input type='range' className="border-2 border-slate-500 p-1 w-11/12 mx-2 rounded-lg text-blue-300" min="0" max="100" value={sliderValue} step="5" onChange={(e:ChangeEvent<HTMLInputElement>)=>setSliderValue(parseInt(e.target.value))} />
-            <span>100</span>
-
+            <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+            <span className='mx-3'>100</span>
+              
             </div>
+            
          </div>
          <div className="w-60 mr-5">
             <p className="text-slate-500">Property type</p>
             <select className="border-2 border-slate-500 p-2 w-11/12 mt-1 rounded-lg">
   <option disabled selected>Select Property type</option>
-  <option>Kerala</option>
-  <option>Another City</option>
-  <option>Yet Another City</option>
+  <option>Apartment</option>
+  <option>Vacation homes</option>
+  <option>Single-family</option>
+  <option>Condominiums</option>
+  <option>Student Housing</option>
+ 
 </select>
             
          </div>

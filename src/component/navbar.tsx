@@ -17,8 +17,8 @@ function Navbar() {
             </div>
             <div className='md:hidden'><ListIcon className='text-white text-xl' onClick={()=>dispatch(openM({key:"open1",value:true}))}/></div>
             <div className='hidden md:block'>
-                <a href='#' className='bg-indigo-300 px-4 py-1 rounded-lg mx-3 hover:text-lg'>Login</a>
-                <a href='#' className='bg-indigo-300 px-2 py-1 mx-3 rounded-lg hover:text-lg'>Sign Up</a>
+                <a href='#' className='bg-indigo-300 px-4 py-1 rounded-lg mx-3 hover:text-lg hover:no-underline'>Login</a>
+                <a href='#' className='bg-indigo-300 px-2 py-1 mx-3 rounded-lg hover:text-lg hover:no-underline'>Sign Up</a>
                 
             </div>
               

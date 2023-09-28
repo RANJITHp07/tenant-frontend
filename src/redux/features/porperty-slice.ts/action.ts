@@ -1,6 +1,6 @@
-import Api from "../../../../services/api";
+import Api from "../../../services/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {endpoints} from "../../../../services/endpoints/properties"
+import {endpoints} from "../../../services/endpoints/properties"
 
 export const getAllproperties=createAsyncThunk(
    "property/getAllproperties",

@@ -1,13 +1,26 @@
+import {useEffect} from "react"
 import Navbar from '../component/navbar'
 import Filter from '../component/filter'
 import NavbarPanel from '../component/navbarPanel'
-import { useAppSelector } from '../redux/store'
+import { useAppSelector,AppDispatch} from '../redux/store'
 import Card from '../component/card'
+import { useDispatch } from "react-redux"
+import { getAllproperties } from "../redux/features/porperty-slice.ts/action"
+
 
 function Homepage() {
     const open1=useAppSelector((state)=>state.openReducer.open1)
+    const {loading,properties,err}=useAppSelector((state)=>state.propertyReducer)
+    const dispatch=useDispatch<AppDispatch>()
+
+    useEffect(()=>{
+       dispatch(getAllproperties())
+   
+    },[dispatch])
   return (
     <div>
+      {
+        !loading && <>
         <Navbar/>
         {
           open1 &&
@@ -23,22 +36,20 @@ function Homepage() {
             <Filter/>
         </div>
         <div className=' flex flex-wrap mx-9 my-12'>
-        <div className="w-full  md:w-1/2 lg:w-1/4 ">
-    <Card />
+          {
+            properties.map((p)=>{
+              return (<>
+               <div className="w-full  md:w-1/2 lg:w-1/4 ">
+    <Card property={p} />
   </div>
-  <div className="w-full  md:w-1/2 lg:w-1/4">
-    <Card />
-  </div>
-  <div className="w-full  md:w-1/2 lg:w-1/4">
-    <Card />
-  </div>
-  <div className="w-full  md:w-1/2 lg:w-1/4">
-    <Card />
-  </div>
-  <div className="w-full  md:w-1/2 lg:w-1/4">
-    <Card />
-  </div>
+              </>)
+            })
+          }
+        
+  
         </div>
+        </>
+      }
     </div>
   )
 }

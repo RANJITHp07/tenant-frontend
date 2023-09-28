@@ -1,12 +1,13 @@
-import Navbar from "./component/navbar";
+
 import Homepage from "./pages/Homepage";
+import LoginPage from "./pages/LoginPage";
 
 
 
 function App() {
   return (
     <div>
-      <Homepage/>
+      <LoginPage/>
     </div>
   );
 }
