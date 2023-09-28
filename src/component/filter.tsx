@@ -15,12 +15,12 @@ function  Filter() {
 </select>
          </div>
          <div className="w-60 mr-5">
-            <p>Available<span className="text-xs"> (Move in date)</span></p>
+            <p className="text-slate-500">Available<span className="text-xs"> (Move in date)</span></p>
             <input className="border-2 border-slate-500 p-1 w-full mt-1 rounded-lg" type='date'/>
             
          </div>
          <div className=" w-60 mr-5">
-            <p>Price <span className="text-xs">(In thousands)</span></p>
+            <p className="text-slate-500">Price <span className="text-xs">(In thousands)</span></p>
             
             <div className="flex text-xs mt-2">
             <span>0</span>
@@ -30,7 +30,7 @@ function  Filter() {
             </div>
          </div>
          <div className="w-60 mr-5">
-            <p>Property type</p>
+            <p className="text-slate-500">Property type</p>
             <select className="border-2 border-slate-500 p-2 w-11/12 mt-1 rounded-lg">
   <option disabled selected>Select Property type</option>
   <option>Kerala</option>

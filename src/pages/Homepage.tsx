@@ -22,8 +22,22 @@ function Homepage() {
             <p className='text-indigo-950 text-2xl mt-3 font-bold'>Search Properties for rent</p>
             <Filter/>
         </div>
-        <div className='mx-9 my-12'>
-          <Card/>
+        <div className=' flex flex-wrap mx-9 my-12'>
+        <div className="w-full  md:w-1/2 lg:w-1/4 ">
+    <Card />
+  </div>
+  <div className="w-full  md:w-1/2 lg:w-1/4">
+    <Card />
+  </div>
+  <div className="w-full  md:w-1/2 lg:w-1/4">
+    <Card />
+  </div>
+  <div className="w-full  md:w-1/2 lg:w-1/4">
+    <Card />
+  </div>
+  <div className="w-full  md:w-1/2 lg:w-1/4">
+    <Card />
+  </div>
         </div>
     </div>
   )
