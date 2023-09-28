@@ -1,19 +1,20 @@
-import { useRef ,ChangeEvent, useEffect} from 'react';
+import { useRef} from 'react';
 import { CircularProgress } from '@mui/material';
 import { useAppSelector } from '../redux/store';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
 import { signUp } from '../redux/features/user-slice.ts/action';
-import { useNavigate } from 'react-router-dom'
+import  {useNavigate}  from 'react-router-dom'
 
-function Form({page}:{page:true}) {
+function Form({page}:{page:boolean}) {
 
     const username=useRef<HTMLInputElement>(null);
     const email=useRef<HTMLInputElement>(null);
     const password=useRef<HTMLInputElement>(null);
     const confirm_password=useRef<HTMLInputElement>(null);
     const {loading,data}=useAppSelector((state)=>state.userReducer)
+    const navigate=useNavigate()
 
     const dispatch=useDispatch<AppDispatch>()
 
@@ -32,6 +33,9 @@ function Form({page}:{page:true}) {
                 
                 dispatch(signUp(user)).then(()=>{
                     message.info(data)
+                    if(data==="User created"){
+                        navigate("/login")
+                    }
                 })
                 console.log(data)
                   

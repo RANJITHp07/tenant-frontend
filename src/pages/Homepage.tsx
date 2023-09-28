@@ -15,7 +15,7 @@ function Homepage() {
 
     useEffect(()=>{
        dispatch(getAllproperties())
-   
+        
     },[dispatch])
   return (
     <div>
