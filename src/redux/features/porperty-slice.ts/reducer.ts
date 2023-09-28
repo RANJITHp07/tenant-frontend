@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,PayloadAction} from "@reduxjs/toolkit";
+import { getAllproperties } from "./actionType";
 
 interface IProperty {
     userId?: string;
@@ -30,9 +31,26 @@ const properties=createSlice({
     name:"properties",
     initialState,
     reducers:{},
-    extraReducers:{
-       builder
+    extraReducers:(builder)=>{
+          builder 
 
-       .
+          .addCase(getAllproperties.pending,(state)=>{
+            state.loading=true,
+            state.err=null
+          })
+
+          .addCase(getAllproperties.fulfilled,(state,action: PayloadAction<IProperty[]>)=>{
+             state.loading=false,
+             state.properties=action.payload,
+             state.err=null
+          })
+
+          .addCase(getAllproperties.rejected,(state,action)=>{
+            state.loading=true,
+            state.err=action.error
+          })
+
     }
 })
+
+export default properties.reducer
