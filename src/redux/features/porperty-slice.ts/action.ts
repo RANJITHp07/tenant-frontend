@@ -15,3 +15,27 @@ export const getAllproperties=createAsyncThunk(
         }
    }
 )
+
+
+export const filterproperties=createAsyncThunk(
+    "property/filterproperties",
+    async(filter:{city:string,date:string,price:number | number[],type:string},{rejectWithValue})=>{
+         try{
+             const res=await Api.get(endpoints.properties.filter,{
+                params:{
+                   city:filter.city,
+                   date:filter.date,
+                   price:filter.price,
+                   type:filter.type
+                }
+             })
+
+             console.log(res.data.data)
+             if(res.data.success){
+                 return  res.data.data
+             }
+         }catch(err){
+             rejectWithValue(err);
+         }
+    }
+ )

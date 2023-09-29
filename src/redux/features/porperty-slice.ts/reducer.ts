@@ -1,5 +1,5 @@
 import { createSlice,PayloadAction} from "@reduxjs/toolkit";
-import { getAllproperties } from "./action";
+import { filterproperties, getAllproperties } from "./action";
 
 interface IProperty {
     userId?: string;
@@ -55,7 +55,34 @@ const properties=createSlice({
               loading: true,
               err: action.error,
             };
-          });
+          })
+
+
+          //filter
+          .addCase(filterproperties.pending,(state)=>{
+            return {
+              ...state,
+              loading: true,
+              err:null
+            }
+          })
+
+          .addCase(filterproperties.fulfilled,(state,action)=>{
+            return {
+              ...state,
+              properties:action.payload,
+              loading: false,
+              err:null
+            }
+          })
+
+          .addCase(filterproperties.rejected,(state,action)=>{
+            return {
+              ...state,
+              loading: true,
+              err:action.error
+            }
+          })
     }
 })
 

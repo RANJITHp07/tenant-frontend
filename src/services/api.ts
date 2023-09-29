@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Api = axios.create({ baseURL:"http://localhost:8000" });
+const Api = axios.create({ baseURL:"https://tenant-cjnq.onrender.com" });
 
 Api.interceptors.request.use((req) => {
   if (localStorage.getItem("token")) {

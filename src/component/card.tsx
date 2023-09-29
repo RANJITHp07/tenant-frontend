@@ -18,10 +18,10 @@ interface IProperty {
 
 
 function Card({property}:{property:IProperty}) {
-  console.log(property.images[0])
+  
   return (
-    <div className='box_shadow w-80  rounded-md mx-3 my-5'>
-        <img crossOrigin="anonymous" src={"http://localhost:8000/images/" + property.images[0]}  alt='card-photo' className='w-full h-72 hover:p-2 hover:rounded-lg rounded-lg'/>
+    <div className='box_shadow w-80  rounded-md md:mx-3 my-5'>
+        <img crossOrigin="anonymous" src={"https://tenant-cjnq.onrender.com/images/" + property.images[0]}  alt='card-photo' className='w-full h-72 hover:p-2 hover:rounded-lg rounded-lg'/>
         <div className='my-3 p-3'>
             <p className='text-sm'><span className='text-xl font-semibold text-indigo-900'>${property.price}/</span>month</p>
             <p className='mt-2 text-slate-600 '>{property.property_name}</p>

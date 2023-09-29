@@ -8,7 +8,7 @@ export const store=configureStore({
     reducer:{
         openReducer,
         propertyReducer,
-        userReducer
+        userReducer,
     }
 })
 

@@ -1,7 +1,18 @@
+import { message } from 'antd'
 import Form from '../component/form'
-import React from 'react'
+import {useEffect} from "react"
+import { useNavigate } from 'react-router-dom'
 
 function LoginPage() {
+  const navigate=useNavigate()
+ useEffect(()=>{
+   const token=localStorage.getItem('userId')
+   if(token){
+     navigate("/")
+     message.info("Already loggedIn")
+   }
+ },[])
+ 
   return (
     <div>
         <Form page ={false}/>

@@ -1,13 +1,21 @@
 import {useState,useEffect, ChangeEvent} from 'react'
 import Slider from '@mui/material/Slider';
+import CloseIcon from '@mui/icons-material/Close';
 import { popularCitiesInIndia } from '../services/data/cities';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useDispatch } from 'react-redux';
+import { filterproperties } from '../redux/features/porperty-slice.ts/action';
+import { AppDispatch } from '../redux/store';
+import { openM } from '../redux/features/open-slice';
 
 function  Filter() {
 
-   const [sliderValue, setSliderValue] = useState(50);
+   const [sliderValue, setSliderValue] = useState<number | number[]>(50);
    const [filter,setfilter]=useState<string[]>([])
    const [city,setcity]=useState('')
+   const [date,setdate]=useState('');
+   const [type,settype]=useState('')
+   const dispatch=useDispatch<AppDispatch>()
 
    function valuetext(value: number) {
       return `${value * 100}°C`;
@@ -42,13 +50,26 @@ function  Filter() {
 
 
     }
+
+    const handlePropertyFilter=()=>{
+      try{
+           dispatch(filterproperties({city,date,type,price:sliderValue}))
+      }catch(err){
+        throw err
+      }
+    }
    
     
     const [openDrop,setopenDrop]=useState(false)
    
   return (
-    <div className='flex p-4 items-center justify-between  box_shadow my-3 rounded-lg'>
-         <div className="w-60 mr-5">
+    <div className='lg:flex p-4 items-center bg-white md:bg-white justify-between  box_shadow lg:my-3 rounded-lg z-50'>
+      <div className='lg:hidden  flex justify-between'>
+      <p className='lg:hidden text-xl font-semibold'>Filter</p>
+      <CloseIcon onClick={()=>dispatch(openM({key:"open2",value:false}))}/>
+      </div>
+      
+         <div className="w-60 lg:mr-5 my-3 md:my-0">
             <p className="text-slate-500">City</p>
             <div className='flex items-center border-2 border-slate-600 rounded-md pl-2 py-1 mt-1 w-11/12'>
             <input
@@ -79,25 +100,26 @@ function  Filter() {
    
 
          </div>
-         <div className="w-60 mr-5">
+         <div className="w-60 lg:mr-5 my-3 md:my-0">
             <p className="text-slate-500">Available<span className="text-xs"> (Move in date)</span></p>
-            <input className="border-2 border-slate-500 p-1 w-full mt-1 rounded-lg" type='date'/>
+            <input className="border-2 border-slate-500 p-1 w-full mt-1 rounded-lg" type='date' onChange={(e:ChangeEvent<HTMLInputElement>)=>setdate(e.target.value)}/>
             
          </div>
-         <div className=" w-60 mr-5">
+         <div className=" w-60 lg:mr-5 my-3 md:my-0 ">
             <p className="text-slate-500">Price <span className="text-xs">(In thousands)</span></p>
             
-            <div className="flex text-xs mt-2">
+            <div className= { openDrop ? "lg:flex text-xs mt-2 hidden":"flex text-xs mt-2" }>
             <span>0</span>
-            <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+            <Slider defaultValue={50} aria-label="Default" value={sliderValue}
+      onChange={(event, newValue) => setSliderValue(newValue)} valueLabelDisplay="auto" />
             <span className='mx-3'>100</span>
               
             </div>
             
          </div>
-         <div className="w-60 mr-5">
+         <div className="w-60 lg:mr-5 sm:my-3 md:my-0 lg:my-0">
             <p className="text-slate-500">Property type</p>
-            <select className="border-2 border-slate-500 p-2 w-11/12 mt-1 rounded-lg">
+            <select className="border-2 border-slate-500 p-2 w-11/12 mt-1 rounded-lg" onChange={(e: ChangeEvent<HTMLSelectElement>)=>settype(e.target.value)}>
   <option disabled selected>Select Property type</option>
   <option>Apartment</option>
   <option>Vacation homes</option>
@@ -108,7 +130,7 @@ function  Filter() {
 </select>
             
          </div>
-         <button className='bg-indigo-950 text-white p-2 rounded-lg'>Apply</button>
+         <button className='bg-indigo-950 my-3 lg:my-1 text-white p-2 rounded-lg' onClick={()=>handlePropertyFilter()}>Apply</button>
     </div>
   )
 }

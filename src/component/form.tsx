@@ -4,7 +4,7 @@ import { useAppSelector } from '../redux/store';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
-import { signUp } from '../redux/features/user-slice.ts/action';
+import { logIn, signUp } from '../redux/features/user-slice.ts/action';
 import  {useNavigate}  from 'react-router-dom'
 
 function Form({page}:{page:boolean}) {
@@ -32,12 +32,15 @@ function Form({page}:{page:boolean}) {
                 }
                 
                 dispatch(signUp(user)).then(()=>{
-                    message.info(data)
+                   
                     if(data==="User created"){
+                      message.info("User created")
                         navigate("/login")
+                    }else{
+                      message.info("Already exist")
                     }
                 })
-                console.log(data)
+                
                   
             }else{
                 message.info("Fill all the fields")
@@ -46,7 +49,28 @@ function Form({page}:{page:boolean}) {
     }
 
     const handleLogin=(e:React.FormEvent<HTMLFormElement>)=>{
-
+           try{
+            e.preventDefault()
+            if(email.current && password.current){
+               const user={
+                email_id:email.current.value,
+                password:password.current.value
+               }
+               dispatch(logIn(user)).then(()=>{
+                
+                 if(data==="Logged in succesfully"){
+                  navigate("/");
+                  message.info("Welcome to home page")
+                 }
+                else{
+                  message.info("password or email not correct")
+                }
+               })
+            }
+                
+           }catch(err){
+            throw err
+           }
     }
 
     
@@ -147,7 +171,7 @@ function Form({page}:{page:boolean}) {
           <>
             <p className="mt-3 md:text-sm">
               Don't have an account?
-              <a href="/signin" className="text-blue-500 md:text-center">
+              <a href="/signup" className="text-blue-500 md:text-center">
                 {' '}
                 Create
               </a>
